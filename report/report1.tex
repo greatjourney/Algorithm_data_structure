@@ -1,0 +1,499 @@
+\documentclass[11pt,a4paper]{jsarticle}
+\usepackage{amsmath,amssymb}
+\usepackage{newtxtext,newtxmath}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{listings}
+\lstset{%
+ language={C++},
+ % backgroundcolor={\color[gray]{.95}},%
+ tabsize=2, % tab space width
+ showstringspaces=false, % don't mark spaces in strings
+ basicstyle={\ttfamily},%
+ %identifierstyle={\small},%
+ commentstyle={\itshape},%
+ keywordstyle={\bfseries},%
+ %ndkeywordstyle={\small},%
+ stringstyle={\ttfamily},
+ %frame={tb},
+ breaklines=true,
+ columns=[l]{fullflexible},%
+ % numbers=left,%
+ % numberstyle={\small},%
+ xrightmargin=0zw,%
+ %xleftmargin=3zw,%
+ stepnumber=1,
+ numbersep=1zw,%
+ lineskip=-0.5ex%
+}
+
+\title{レポート第1回 \\
+  「情報数理科学2 4/16出題課題」}
+\author{氏 名：　林橘平\\
+        学際科学科　総合情報コース3年 \\
+        学生証番号：08-192025 \\
+        E-mail: hk1338h0401@gmail.com}
+\date{\today}
+%
+\begin{document}
+\maketitle
+%
+\section{課題1 - Exercise1}
+\subsection{プログラムリスト}
+\label{sec:prog-list1}
+% プログラムは 以下のように \begin{lstlisting} ... \end{lstlisting} を使って表示する．
+% また，行番号をつけるときは
+% \begin{lstlisting}[numbers=left]
+% のようにオプションをつけよ．
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    lines.push_back(line);
+  }
+  for (size_t i = 0; i < lines.size(); i++){
+    cout << lines[lines.size() -(i + 1)] << endl;
+  }
+}
+
+\end{lstlisting}
+%
+\subsection{実行結果}
+\label{sec:results1}
+
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+(base) MBP:report1 hayashikippei$ g++ -o 1  1.cc
+(base) MBP:report1 hayashikippei$ ./1 < sample.txt > 1.out
+(base) MBP:report1 hayashikippei$ diff 1.out  1.txt 
+1182c1182
+< {w
+---
+> {
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+入力したテキストファイル0.ccをgetlineで読み込んでvectorに貯めてそれをそのまま出力する0.ccの出力部分を変更した。0.ccではlines[0]からlines[lines.size()-1]まで順番に出力するが、
+cout << lines[lines.size() -(i + 1)] << endl;
+として逆に出力するようにした。
+diff で調べると1.txtと異なる部分が出たが、sample.txtの該当箇所は{w
+となっているので1.outの方が正しく、1.txtが誤りであると考えられる。
+\end{verbatim}
+%
+\section{課題2 -Exercise2}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main(){
+    vector<string> lines;
+    for (string line; getline(cin, line); ){
+        lines.push_back(line);
+        if (lines.size() ==50) {
+            for (size_t i = 0; i < lines.size(); i++){
+            cout << lines[lines.size() -(i + 1)] << endl;
+            }
+            lines.clear();
+        }        
+    }
+    for (size_t i = 0; i < lines.size(); i++){
+            cout << lines[lines.size() -(i + 1)] << endl;
+        }
+}
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+
+(base) MBP:report1 hayashikippei$ c++ -o 2 2.cc
+(base) MBP:report1 hayashikippei$ ./2 < sample.txt > 2.out
+(base) MBP:report1 hayashikippei$ diff 2.out 2.txt
+27c27
+< {w
+---
+> {
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+getline()で１行ずつ読み込んでいく部分の記述は課題1と同じである。１行ずつ追加していき、linesが50行保持したら、条件分岐で出力の処理を始め、lines.clear()でlinesを初期化して再び同じ処理を繰り返す。そうし終えた後、最後の50行以下の部分を同じように出力すれば課題は解決である。この処理においてlines.size()が50を超えることはないため、50行より多くの行は保持していない。
+diffで調べたところ課題1と同じく2.txtと異なる部分が出たが、sample.txtの該当箇所は{w
+となっているので2.outの方が正しく、2.txtが誤りであると考えられる。
+\end{verbatim}
+%
+\section{課題3 - Exercise3}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main(){
+    vector<string> lines;
+    for(int i = 0; i < 42; i++) {
+        string line;
+        getline(cin, line);
+        lines.push_back(line);
+    }
+    for (string line; getline(cin, line); ){
+        if (line.empty()) {
+            cout << lines[0] << endl;
+        }
+        lines.erase(lines.begin());
+        lines.push_back(line);
+        
+    }
+}
+
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+
+(base) MBP:report1 hayashikippei$ c++ -o 3 3.cc
+(base) MBP:report1 hayashikippei$ ./3 < sample.txt > 3.out
+(base) MBP:report1 hayashikippei$ diff 3.out 3.txt
+(base) MBP:report1 hayashikippei$ 
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+空行を見つけるのは42行目以降なので、まず42行目までをlinesに格納した。そしてその後、line.empty()で空行か判断し、そうであればlines[0]を出力。その後、lines[0]をeraseメソッドで消去した後にlinesにpush_backメソッドで要素を追加する。このコードではlines.size()は常に42に保たれており、42を超えることはない。(念の為
+if(lines.size() >= 43) 
+cout << "out" << endl;
+として確認したがループ内で43以上になることはなかった。また、diffで確認したとこと3.outと3.txtは全く同じ内容だったため、このコードは課題の条件を満たしていると考えられる。
+\end{verbatim}
+%
+\section{課題4 - Exercise4}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    if(find(lines.begin(),lines.end(),line) == lines.end()) {
+        cout << line << endl;
+        lines.push_back(line);
+    }
+  }
+}
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+
+(base) MBP:report1 hayashikippei$ c++ -o 4 4.cc
+(base) MBP:report1 hayashikippei$ ./4 < sample.txt > 4.out
+(base) MBP:report1 hayashikippei$ diff 4.out 4.txt
+23c23
+< {w
+---
+> {
+38d37
+< {
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+getline()メソッドで1行ずつ読み込んでいく。読み込んだlineについてfindメソッドで、その要素がすでにlinesに含まれていないか判断する。含まれていない場合のみそれを出力し、linesの要素に加える。こうすることでlinesの要素は重複することがなく、保持する行数も必要最低限となる。diffで確認したところ例のごとく4.txtと異なる部分があったが、sample.txtの方を参照したところ、4.outが正しく4.txtの方に誤りがあると考えられる。以上のことからこのプログラムは課題の条件を満たしていると考えられる。
+\end{verbatim}
+%
+\section{課題5 - Exercise5}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    if(find(lines.begin(),lines.end(),line) == lines.end()) {
+        lines.push_back(line);
+    }
+    else{
+        cout << line << endl;
+    }
+  }
+}
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+
+(base) MBP:report1 hayashikippei$ c++ -o 5 5.cc
+(base) MBP:report1 hayashikippei$ ./5 < sample.txt > 5.out
+(base) MBP:report1 hayashikippei$ diff 5.out 5.txt
+7a8
+> {
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+課題4とほとんど同じプログラムである。変更したのは出力に関係する箇所。上では同じ要素がlinesになければ出力していたが、こちらでは同じ要素がlinesにあれば出力している。diffで確認したところ例のごとく5.txtと異なる部分があったが、sample.txtの方を参照したところ、5.outが正しく5.txtの方に誤りがあると考えられる。また、上と同じく保持する行数も必要最低限である。以上のことからこのプログラムは課題の条件を満たしていると考えられる。
+\end{verbatim}
+
+%
+\section{課題6 - 2.5節　例1}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+#include<algorithm>
+using namespace std;
+
+
+template<class T>
+class lesserX {
+public:
+    bool operator()(const string & a, const string & b) {
+        if (a.size() == b.size()) {
+            return a < b;
+        }
+        else {
+            return a.size() < b.size();
+        };
+    }
+};
+
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    if(find(lines.begin(),lines.end(),line) == lines.end()) {
+        lines.push_back(line);
+    }
+  }
+  lesserX<double> lesserx;
+  sort(lines.begin(), lines.end(), lesserX<int>());
+  for (size_t i = 0; i < lines.size(); i++){
+    cout << lines[i] << endl;
+  }
+}
+
+\end{lstlisting}
+%
+\subsection{実行結果}
+\label{sec:results1}
+
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+(base) MBP:report1 hayashikippei$ c++ -o 6 6.cc
+(base) MBP:report1 hayashikippei$ ./6 < sample.txt > 6.out
+(base) MBP:report1 hayashikippei$ diff 6.out 6.txt
+4d3
+< {w
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+まず、sortのためのテンプレートクラスlesserXを作成した。内容は、string a, bの文字数が同じならa < bとして辞書順で若いものを先に来るようにして、文字数が異なるならばa.size() < b.size()として文字数が少ないものを先に来させる。その後はlinesに重複を除いた全ての行を格納してからsortメソッドで並び替えたのち出力した。
+\end{verbatim}
+%
+\section{課題7 - 2.7節　例1}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+#include<algorithm>
+using namespace std;
+
+template<class T>
+class lesserX {
+public:
+    bool operator()(const string & a, const string & b) {
+        if (a.size() == b.size()) {
+            if (a == b){
+                return a.size() < b.size();
+            }
+            else{
+                return a < b;
+            }
+        }
+        else {
+            return a.size() < b.size();
+        };
+    }
+};
+
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    lines.push_back(line);
+  }
+  lesserX<double> lesserx;
+  sort(lines.begin(), lines.end(), lesserX<int>());
+  for (size_t i = 0; i < lines.size(); i++){
+    cout << lines[i] << endl;
+  }
+}
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+(base) MBP:report1 hayashikippei$ c++ -o 7 7.cc
+(base) MBP:report1 hayashikippei$ ./7 < sample.txt > 7.out
+(base) MBP:report1 hayashikippei$ diff 7.out 7.txt
+100a101
+> {
+139d139
+< {w
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+課題6のプログラムを参考に書き換えた。今回は重複したものも全て出力するため、sortに用いるclass lesserXの部分を変更する必要がある。条件分岐をさらに増やし、a == b の時にreturn a.size() < b.size(); とすることで、全く同じ行同士を比較しても、課題6のように文字数順かつ辞書列順に並び替えることができるようにした。（sort()におけるboolの処理がいまいちよくわかってないので、なぜこうすればうまくいくのかがいまいちわからないです。あれこれ試したらできた、のような感じでした。）diffで調べると7.txtとは異なる部分が２箇所あった。後者の
+139d139
+< {w
+の部分は、sample.txtに実際に{wの行があるため、7.txtが間違いだとすぐにわかる。
+前者について。{ のみの行の数は、7.outは35個、7.txtは36個である。簡単なコード（以下 )
+#include <iostream>
+#include <string>
+#include <vector>
+#include<algorithm>
+using namespace std;
+
+int main(){
+  for (string line; getline(cin, line); ){
+    if (line == "{") {
+        cout << line<< endl;
+        }
+  }
+}
+を書いてsample.txtの{のみの行の数を数えたところ、35個だった。よって7.outが正しく、7.txtが誤りである。以上から、このプログラムは課題の条件を満たしていると考えられる。
+\end{verbatim}
+
+%
+\section{課題8 - Exercise8}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    lines.push_back(line);
+  }
+  for (size_t i = 0; (2 * i) < lines.size(); i++){
+    cout << lines[2 * i] << endl;
+  }
+  for (size_t i = 0; (2 * i) + 1 < lines.size(); i++){
+    cout << lines[(2 * i) + 1] << endl;
+  }
+}
+
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+(base) MBP:report1 hayashikippei$ c++ -o 8 8.cc
+(base) MBP:report1 hayashikippei$ ./8 < sample.txt > 8.out
+(base) MBP:report1 hayashikippei$ diff 8.txt 8.out
+615c615
+< {
+---
+> {w
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+まず全ての行をlinesに格納してから、for文で偶数行と奇数行を全て出力した。diffで確認したところ例のごとく8.txtと異なる部分があったが、sample.txtを参照したところ8.outが正しく8.txtが誤っていると考えられる。よってこのプログラムは課題の条件を満たしていると考えられる。
+\end{verbatim}
+%
+\section{課題9 - Exercise9}
+\subsection{プログラムリスト}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include <iostream>
+#include <string>
+#include <vector>
+#include <random>
+#include <algorithm>
+using namespace std;
+
+int main(){
+  vector<string> lines;
+  for (string line; getline(cin, line); ){
+    lines.push_back(line);
+  }
+  random_shuffle( lines.begin(), lines.end());
+  for (size_t i = 0; i < lines.size(); i++){
+    cout << lines[i] << endl;
+  }
+}
+
+\end{lstlisting}
+%
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+(base) MBP:report1 hayashikippei$ c++ -o 9 9.cc
+(base) MBP:report1 hayashikippei$ ./9 < sample.txt > 9.out
+(base) MBP:report1 hayashikippei$ diff 9.out 9.txt
+8c8
+< {w
+---
+> {
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+c++のSTLであるrandomライブラリをインポートし、その中のrandom_shuffleメソッドで配列をランダムに並び替えた。この関数は非常に便利であるが、何度やっても同じ結果が出る。実際、9.outと9.txtはどちらも配列をランダムにシャッフルしたものであるが、同じファイルになっている。おそらくどちらも同じような手法だと考えられる。({w については無視する。) 理想は、重複なく実行するたびに結果が変わるようなものだが、そのような乱数は実装できなかった。軽く調べた限りだがプログラム上で乱数を実装するのは奥が深く、様々な手法があった。時間があればまた挑戦してみたい。
+\end{verbatim}
+%
+\end{document}

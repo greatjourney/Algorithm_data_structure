@@ -1,0 +1,1205 @@
+  for(int y=1;y<=9;y++){
+          prev_effect[i].set(sq);
+#include "osl/move_classifier/check_.h"
+    *((v2di*)&(*this).board[56])=b56;
+  mobility::MobilityTable mobilityTable;
+  if (pieces.any()) 
+  assert(turn() == move.player());
+{w
+ */
+            if (show_error)
+  template Piece 
+               PtypeO& oldPtypeO, PtypeO& new_ptypeo,
+  return PlayerMoveAdaptor<Check>::isMember(*this, move);
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<BLACK>()))
+    changed.set(to);
+    // 王手がかかっている時は防ぐ手のみを生成, 王手回避は不成も生成
+       || pin_or_open[WHITE]!=pin_or_open_backup[WHITE])
+  assert(st1.isConsistent(true));
+    effects.effected_mask[BLACK].reset(num);
+
+  setBoard(from,oldPiece);
+  case GOLD:
+    Direction lastD=UL;
+
+{
+    effects.effected_mask[WHITE].reset(num0);
+    recalcPinOpen(to,lastD,alt(P));
+  CArray<PieceMask,2> pin_or_open_backup;
+        if(hasEffectAt(pl,p.square()))
+}
+    promoted.set(num);
+    if (showError)
+  show_error=false;
+{
+  PtypeO oldPtypeO, newPtypeO;
+       || pin_or_open[BLACK]!=pin_or_open_backup[BLACK])
+  const Piece piece = pieceOnBoard(to);
+  effects.effectedNumTable[num].clear();
+}
+    return pieceOf(ret);
+      }
+  {
+osl::NumEffectState::isAlmostValidMove(Move move) const{
+                                    kingSquare(alt(turn())));
+    return hasEffectIf(last_move.capturePtypeO(), to,
+  stand_count[P][unpromote(getPtype(capturePtypeO))-PTYPE_BASIC_MIN]++;
+                      << " " << prev.effectedChanged(pl) << " != " << prev.effectedChanged(WHITE) << "\n";
+  assert(isValidMoveByRule(move, true));
+  setBoard(from,Piece::EMPTY());
+  oldPiece=pieceOf(num);
+  makePinOpenDir<U>(target,pins,mask,defense);
+      std::cerr << "Effect error 1" << std::endl;
+  template void NumEffectState::
+  if (!(st1.king_mobility == st2.king_mobility)) 
+    if (plance.any())
+findEffect(Player P, Square target, PieceVector& out) const
+    if (p.isOnBoard()){
+{
+    recalcPinOpen(to,lastD,P);
+      makeKing8Info<WHITE>();
+{
+             const CArray<PieceMask,2>& effected_changed_mask_backup,
+  effects.template doEffect<NumBitmapEffect::Sub,false>(*this,ptypeO,to,num);
+               CArray<uint64_t,2>& king8infos_backup,
+  if (oldPtypeO == newPtypeO(P,KING))
+
+                  const MobilityTable&);
+    *((v2di*)&(*this).board[144])=b144;
+  if(hasEffectAt(BLACK,to))
+                 PieceMask&, CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+  setBoard(to,newPiece);
+void osl::NumEffectState::
+  }
+    *((v2di*)&(*this).board[20])=b20;
+    if (last_move.isCapture()
+    return isAlmostValidMove<false>(move);
+                       kingSquare(alt(turn())))
+  }
+       || pin_or_open[BLACK]!=pin_or_open_backup[BLACK])
+  if(turn()==BLACK){
+  if(kingSquare<WHITE>().isOnBoard())
+    return pieceOf(ppieces.bsf()+PtypeFuns<PAWN>::indexNum*32);
+    }
+    *((v2di*)&(*this).board[132])=b132;
+      {
+          std::cerr << "promoted differs " << p << " " << promoted << " " << promoted.test(i) << "\n";
+               int&, mask_t&, CArray<PieceMask,2>&, KingMobility&,
+    if (notpromoted.any())
+
+{
+#endif
+      return false;
+        for(int i=0;i<8;i++){
+}
+  makePinOpenDir<R>(target,pins,mask,defense);
+               const PieceMask& promoted_backup,
+  king8infos_backup=king8infos;
+    }
+  pin_or_open = pin_or_open_backup;
+  PieceMask promoted_backup;
+                  CArray<uint64_t,2>&, MobilityTable&);
+makePinOpen(osl::Square target,osl::Player defense)
+    *((v2di*)&(*this).pieces[16])=p16;
+
+bool osl::NumEffectState::isPawnDropCheckmate(Move move) const
+      pieces_onboard[p.owner()].set(num);
+    promoted.set(num0);
+          }
+              != (prev.effectSetAt(sq) & prev.piecesOnBoard(pl))) {
+    effects.effected_mask[WHITE].set(num0);
+  effects.invalidateChangedEffects();
+  if(kingSquare<BLACK>().isOnBoard())
+        }
+      makeKing8Info<BLACK>();
+{
+  num0=oldPiece.number();
+    = {{ changedEffects(BLACK), changedEffects(WHITE) }};
+  setBoard(to,newPiece);
+                  CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+                int promoteMask,
+          {
+    *((v2di*)&(*this).pieces[0])=p0;
+    v2di b148=*((v2di*)&src.board[148]);
+#include "osl/move_generator/allMoves.h"
+    return false;
+                    promoted_backup, effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+void osl::NumEffectState::generateWithFullUnpromotions(MoveVector& moves) const
+  if (!(st1.king8infos == st2.king8infos)) 
+                 effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+  capturePtypeO=target.ptypeO();
+#include "osl/simpleState.tcc"
+  CArray<PieceMask,2> effected_mask_backup;
+  king_mobility = king_mobility_backup;
+  pieces_onboard[alt(P)].xorMask(num1Index,num1Mask);
+  if(target.isPieceStand()) return pins;
+  effects.setChangedPieces(effectSetAt(to));
+
+    *((v2di*)&(*this).board[120])=b120;
+    each_effect[i].clear();
+}
+  this->stand_count = src.stand_count;
+  // test effectedChanged(Player pl)
+    v2di p36=*((v2di*)&src.pieces[36]);
+  }
+  setBoard(to,target);
+}
+    effects.effected_mask[BLACK].set(num);
+  const Direction d=pinnedDir(piece);
+  makePinOpen(BLACK);
+epilogueCapture(Player2Type<P>, Square from, Square to, Piece target, 
+      }
+          effects.effected_mask[i].set(num);
+    }
+  CArray<PieceMask,2> effected_changed_mask_backup;
+  effects.doBlockAt<NumBitmapEffect::Sub,false>(*this,from,num);
+                  const CArray<PieceMask,2>&, const CArray<uint64_t,2>&,
+  generateLegal(moves);
+             const CArray<PieceMask,2>& pin_or_open_backup,
+  PieceMask pins;
+#include <iostream>
+template<osl::Player P>
+  effects.template doEffect<NumBitmapEffect::Add,true>(*this,ptypeO,to,num);
+    for(int x=9;x>0;x--){
+{
+               KingMobility& king_mobility_backup,
+    return false;
+#ifdef ALLOW_KING_ABSENCE
+{
+  {
+}
+        std::cerr << "king8info for " << p << " differs \n" << King8Info(Iking8Info(p)) << "\n" << king8info2 << "\n";
+
+    if (move.hasIgnoredUnpromote())
+
+    }      
+    return allEffectAt<KNIGHT>(attack, target);
+
+      makeKing8Info<WHITE>();
+    const Piece captured = pieceOnBoard(to);
+  if (capturePtype==PAWN)
+  case LANCE: case PLANCE:
+    {
+    GenerateAllMoves::generate(turn(), *this, all_moves);
+    v2di b48=*((v2di*)&src.board[48]);
+    for (int y=1; y<=9; ++y) {
+            return false;
+bool osl::NumEffectState::
+      return false;
+  king_mobility_backup = king_mobility;
+    *((v2di*)&(*this).board[152])=b152;
+          if (!(effects1.effectSetAt(pos)==effects.effectSetAt(pos)))
+
+  else{
+  return ConditionAdaptor<OpenCheck>::isMember(*this, move);
+    if (each_effect[i] == prev_effect[i])
+    Direction lastD=UL;
+#endif
+#endif
+  const Square to=move.to();
+                MobilityTable &mobility_backup)
+
+  if (pieces.any()) 
+               const CArray<PieceMask,2>&, const KingMobility&, const CArray<PieceMask,2>&,
+            std::cerr << pos << ",real=" << effects.effectSetAt(pos) << ",ideal=" << effects1.effectSetAt(pos) << std::endl;
+      continue;
+#if (defined(__i386__) || defined(__x86_64__)) && !defined(OSL_NO_SSE)
+                PtypeO newPtypeO, int num0, int num1, 
+               int&, mask_t&, CArray<PieceMask,2>&, KingMobility&,
+  standMask(P).xorMask(num1Index,num1Mask);
+  effect::NumSimpleEffectTable effects1(*this);
+  CArray<uint64_t,2> king8infos_backup;
+  effected_mask_backup = effects.effected_mask;
+
+                  const KingMobility&, const PieceMask&, const CArray<PieceMask,2>&,
+  setPieceOf(num,oldPiece);
+  assert(st2.isConsistent(true));
+    *((v2di*)&(*this).pieces[20])=p20;
+  }
+  PtypeO ptypeO;
+    recalcPinOpen(from,lastD,alt(P));
+  stand_count[P][unpromote(getPtype(capturePtypeO))-PTYPE_BASIC_MIN]--;
+  setPieceOf(num,newPiece);
+    const Move move = moves[i];
+const osl::checkmate::King8Info osl::
+  return PlayerMoveAdaptor<DirectCheck>::isMember(*this, move);
+      }
+  prologueCapture(Player2Type<BLACK>, Square, Square, Piece, int, Piece&,
+  return true;
+             Piece& oldPiece, int& num, PtypeO& ptypeO, 
+#ifndef MINIMAL
+
+      pp = promoted.bsr() + i*32;
+}
+    pin_or_open[P].reset(num1); // captured is not pin
+    makePinOpen(P);
+isAlmostValidMove(Move move,bool show_error) const{
+  hasEffectByWithRemove<BLACK>(Square, Square) const;
+void osl::NumEffectState::
+  king_mobility = king_mobility_backup;
+  const Square to=move.to();
+        if (effectSetAt(sq).test(i))
+                int& num1Index, mask_t& num1Mask,
+               MobilityTable &mobility_backup)
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<BLACK>()))
+doCaptureMove(Square from, Square to, Piece target, int promoteMask)
+#endif
+  }
+  effects.effected_changed_mask[BLACK].set(num0);
+  effects.effected_changed_mask = effected_changed_mask_backup;
+    v2di p4=*((v2di*)&src.pieces[4]);
+  effects.effected_changed_mask[WHITE].set(num);
+    recalcPinOpen(to,lastD,alt(P));
+    *((v2di*)&(*this).board[104])=b104;
+    }
+    assert(0);
+      }
+  this->pieces_onboard=src.pieces_onboard;
+  effects.effected_mask[1].resetAll();
+        if (showError)
+  case KING:
+  effects.effected_changed_mask[WHITE].set(num0);
+    return allEffectAt<KING>(attack, target);
+    GenerateEscapeKing::generate(*this, moves);
+    const Piece p = pieceOf(i);
+               const MobilityTable & mobility_backup)
+  CArray<uint64_t,2> king8infos_backup;
+                  << " " << each_effect[i] << " != " <<  prev_effect[i] << "\n";
+    *((v2di*)&(*this).pieces[36])=p36;
+{
+  switch (ptype) {
+  epilogueCapture(Player2Type<BLACK>, Square, Square, Piece, Piece, PtypeO, PtypeO, 
+    return isAlmostValidMove<true>(move);
+  }
+#include "osl/numEffectState.h"
+#else
+
+bool osl::NumEffectState::isConsistent(bool showError) const
+  if(!hasEffectByPiece(from_piece,to)){
+  promoted = promoted_backup;
+    Direction lastD=UL;
+  if (promoteMask)
+  PtypeO oldPtypeO, capturePtypeO, newPtypeO;
+#endif
+
+  mobility_backup = effects.mobilityTable;
+    recalcPinOpen(from,lastD,P);
+  newPiece+=(to-from);
+  effects.effected_changed_mask[1].resetAll();
+  mask_t lance = pieces.selectBit<LANCE>();
+      return true;
+  newPiece+=to-Square::STAND();
+      for (int i=0; i<2; ++i) 
+  else
+    prologueSimple(Player2Type<WHITE>(), from, to, promoteMask, 
+      if (showError)
+  effects.effectedNumTable[num1]=effects.effectedNumTable[num0];
+                  const KingMobility&, const PieceMask&, const CArray<PieceMask,2>&,
+    return;
+  num1Index=PieceMask::numToIndex(num1);
+}
+#if 0
+                const CArray<PieceMask,2>& pin_or_open_backup,
+    *((v2di*)&(*this).board[128])=b128;
+  Piece newPiece=oldPiece.promoteWithMask(promoteMask);
+prologueCapture(Player2Type<P>, Square from, Square to, Piece target, 
+    v2di b72=*((v2di*)&src.board[72]);
+    if (promoted.any()) {
+  king8infos[P]=King8Info::make<altP>(*this,kingSquare<P>()).uint64Value();
+  template void NumEffectState::
+{
+bool osl::NumEffectState::isDirectCheck(Move move) const
+  effects.effected_changed_mask[0].resetAll();
+    *((v2di*)&(*this).board[72])=b72;
+  effects.effectedNumTable[num].clear();
+    v2di p12=*((v2di*)&src.pieces[12]);
+  template Piece 
+    return allEffectAt<SILVER>(attack, target);
+    v2di p28=*((v2di*)&src.pieces[28]);
+        {
+  king8infos = king8infos_backup;
+          return false;
+  NumEffectState::safeCaptureNotByKing<BLACK>(Square, Piece) const;
+  pin_or_open_backup = pin_or_open;
+  king8infos_backup = king8infos;
+      {
+             KingMobility& king_mobility_backup,
+  king_mobility_backup = king_mobility;
+    prev_effect[i].clear();
+  }
+{
+  makePinOpenDir<UL>(target,pins,mask,defense);
+      doSimpleMove(from,to,move.promoteMask());
+  }
+  if (pieces.none() || ppieces.none())
+    changed.set(to);
+    v2di p16=*((v2di*)&src.pieces[16]);
+    pin_or_open[P].reset(num);
+             MobilityTable &mobility_backup)
+                 [&](Move m){
+  {
+typedef __v2di v2di;
+{
+
+    *((v2di*)&(*this).board[40])=b40;
+    return true;
+
+  effects.effected_changed_mask = effected_changed_mask_backup;
+             const MobilityTable& mobility_backup)
+}
+      std::cerr << " No such move2 : " << move << std::endl;
+    return allEffectAt<GOLD>(attack, target);
+    std::copy_if(all_moves.begin(), all_moves.end(), std::back_inserter(moves),
+#endif
+  effects.template doEffect<NumBitmapEffect::Sub,false>(*this,newPtypeO,to,num0);
+NumEffectState::wasCheckEvasion(Move last_move) const
+      if (! changed_all.test(sq))
+    if (pieces.any())
+  }
+    clearPawn(turn(),from);
+                KingMobility& king_mobility_backup,
+  numIndex=0;
+  Piece newPiece=oldPiece;
+                   return this->isSafeMove(m) && ! this->isPawnDropCheckmate(m);
+}
+
+  effects.effected_mask[WHITE].reset(num1);
+  template void NumEffectState::
+      return pieceOf(pieces.bsf()+PtypeFuns<LANCE>::indexNum*32);
+        for(int x=9;x>0;x--)
+// ;;; mode:c++
+#if (defined __GNUC__) && (! defined GPSONE) && (! defined GPSUSIONE)
+  }
+    {
+
+    v2di b56=*((v2di*)&src.board[56]);
+  for(int x=1;x<=9;x++)
+                 pin_or_open_backup, king_mobility_backup,
+  }
+  if (!(st1.promoted == st2.promoted)) 
+      && !Board_Table.isBetweenSafe(from, to, 
+  effects.effected_changed_mask[BLACK].set(num);
+    *((v2di*)&(*this).board[96])=b96;
+  CArray<BoardMask, Piece::SIZE> each_effect, prev_effect;
+  if(hasEffectAt(BLACK,to))
+          == static_cast<const SimpleState&>(st2));
+  effected_mask_backup = effects.effected_mask;
+
+      }
+    return allEffectAt<PAWN>(attack, target);
+            std::cerr << "piece=" << pieceOf(num) << ",num=" << num << ",d=" << d << ",v1=" << effects.effectedNumTable[num][d] << ",v2=" << effects1.effectedNumTable[num][d] << std::endl;
+                const CArray<PieceMask,2>& effected_changed_mask_backup,
+  case ROOK: case PROOK:
+  effects.template doBlockAt<NumBitmapEffect::Add,true>(*this,from,num);
+osl::PieceMask osl::NumEffectState::
+  if(show_error)
+      makeKing8Info<BLACK>();
+#include "osl/move_generator/effect_action.h"
+#endif
+  (*this).used_mask=src.used_mask;
+  effects.clearChangedEffects();
+    makePinOpen(P);
+#ifndef MINIMAL
+#include "osl/numEffectState.tcc"
+allEffectAt(Player attack, Ptype ptype, Square target) const
+template<osl::Player P>
+  if (last_move.ptype() == KING) {
+  template void NumEffectState::
+  if (!(effects1==effects))
+  return Piece::EMPTY();
+      
+                   pin_or_open_backup, king_mobility_backup,
+        }
+}
+  ppieces = effect.getMask(index) & promoted.getMask(index);
+  makePinOpenDir<D>(target,pins,mask,defense);
+}
+  }
+  return PlayerMoveAdaptor<PawnDropCheckmate>::isMember(*this, move);
+  else{
+  pieces = effect.selectBit<LANCE>();
+  effects.template doEffect<NumBitmapEffect::Sub,true>(*this,capturePtypeO,to,num1);
+      os << csa::show(pieceAt(pos)) << effectSetAt(pos);
+    return hasEffectAt(turn(), from);
+  {
+  for (int i=0; i<Piece::SIZE; ++i) {
+      std::cerr << effects.effectedNumTable << std::endl;
+               const CArray<PieceMask,2>& pin_or_open_backup,
+          Square pos(x,y);
+
+    King8Info king8info2 = King8Info::make(alt(p), *this);
+    v2di b24=*((v2di*)&src.board[24]);
+  effects.invalidateChangedEffects();
+                 pin_or_open_backup, king_mobility_backup,
+  copyFrom(NumEffectState(src));
+    else
+  NumEffectState::safeCaptureNotByKing<WHITE>(Square, Piece) const;
+      const Square sq(x, y);
+    v2di b128=*((v2di*)&src.board[128]);
+{
+    }
+  if (move.isPass()) {
+                  CArray<PieceMask,2>&, KingMobility&, PieceMask&,
+    v2di b144=*((v2di*)&src.board[144]);
+  setBoard(to,Piece::EMPTY());
+      makeKing8Info<WHITE>();
+  if (! testValidityOtherThanEffect<show_error>(move))
+    makeKing8Info<BLACK>();
+    *((v2di*)&(*this).board[52])=b52;
+  effected_changed_mask_backup = effects.effected_changed_mask;
+    *((v2di*)&(*this).board[88])=b88;
+  }
+
+    }
+    return;
+              std::cerr << "changedEffects unset for " << pl << "\n" << *this << moved << sq << "\n";
+  template void NumEffectState::makeKing8Info<WHITE>();
+  promoted_backup = promoted;
+    Piece p=pieceOf(num);
+void osl::NumEffectState::generateAllUnsafe(MoveVector& out) const
+                const KingMobility& king_mobility_backup,
+             const CArray<uint64_t,2>& king8infos_backup,
+
+      return false;
+    ret = std::max(pp, npp);
+  makePinOpenDir<DR>(target,pins,mask,defense);
+    v2di b64=*((v2di*)&src.board[64]);
+
+makePinOpen(osl::Player defense)
+  template bool NumEffectState:: 
+  return true;
+  prologueSimple(Player2Type<WHITE>, Square, Square, int, Piece&, int&, 
+    v2di b36=*((v2di*)&src.board[36]);
+        promoted.set(num);
+  else {
+  if (lance.any()) {
+
+  if (from.isPieceStand()) // 打つ手
+                  CArray<uint64_t,2>&, MobilityTable&);
+    }
+  if (!SimpleState::isConsistent(showError)) 
+    const Player p = indexToPlayer(z);
+               CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+          if (show_error)
+               const CArray<PieceMask,2>& effected_mask_backup,
+      continue;
+        && hasEffectIf(last_move.capturePtypeO(), to, from))
+    return false;
+NumEffectState::king8Info(Player king) const
+
+    pin_or_open[alt(P)].reset(num);
+  return pieceOf(std::min(num, nump));
+  const NumBitmapEffect changed_effect_pieces = changedPieces(); 
+  effects.effected_changed_mask[BLACK].set(num);
+    recalcPinOpen(to,lastD,alt(P));
+    if (! changed_effect_pieces.test(i)) {
+bool osl::operator==(const NumEffectState& st1,
+#endif
+               const CArray<PieceMask,2>&, const CArray<uint64_t,2>&, const MobilityTable&);
+                const MobilityTable &mobility_backup)
+    makeKing8Info<WHITE>();
+    v2di b40=*((v2di*)&src.board[40]);
+    ppieces = pieces & promoted.getMask<LANCE>();
+    else if (standMask(WHITE).test(num)){
+    return false;
+const osl::Piece osl::
+      }
+#endif
+  assert(this->turn() == move.player());
+  const Square from = last_move.from(), to = last_move.to();
+    v2di b88=*((v2di*)&src.board[88]);
+      std::cerr << "error before effect\n";
+  prologueCapture(Player2Type<WHITE>, Square, Square, Piece, int, Piece&,
+  num1=target.number();
+#include "osl/move_generator/escape_.h"
+  effected_changed_mask_backup = effects.effected_changed_mask;
+  oldPtypeO=oldPiece.ptypeO();
+    return allEffectAt<ROOK>(attack, target);
+
+  int pp=-1, npp=-1, ret=-1;
+        if (! changed_squares[pl].test(sq))
+    Direction lastD=UL;
+    return;
+  prologueSimple(Player2Type<BLACK>, Square, Square, int, Piece&, int&, 
+
+    *((v2di*)&(*this).board[148])=b148;
+  if (inCheck()) {
+  pieces_onboard[alt(P)].xorMask(num1Index,num1Mask);
+          if ((effectSetAt(sq) & piecesOnBoard(pl))
+template<osl::Player P>
+             CArray<uint64_t,2>& king8infos_backup,
+                    capturePtypeO, newPtypeO, num0, num1, num1Index,num1Mask, 
+  for(int num=0;num<Piece::SIZE;num++){
+  standMask(P).xorMask(numIndex,numMask);
+  CArray<PieceMask,2> pin_or_open_backup;
+  effects.effectedNumTable[num0]=effects.effectedNumTable[num1];
+  KingMobility king_mobility_backup;
+    *((v2di*)&(*this).board[112])=b112;
+  effects.template doBlockAt<NumBitmapEffect::Sub,false>(*this,from,num0);
+          effects.effected_changed_mask[i].set(num);
+    return pieceOf(ppieces.bsf()+PtypeFuns<LANCE>::indexNum*32);
+  pin_or_open_backup = pin_or_open;
+
+      return pieceOf(ret);  
+  if (promoteMask)
+}
+  pieces_onboard[1].resetAll();
+       || pin_or_open[WHITE]!=pin_or_open_backup[WHITE])
+  assert(isAlmostValidMove(move));
+  effects.template doEffect<NumBitmapEffect::Add,false>(*this,capturePtypeO,to,num1);
+
+    if (p.isOnBoard()) {
+  assert(ownMochigoma.any());
+  CArray<PieceMask,2> effected_mask_backup;
+    pin_or_open[alt(P)].reset(num0);
+                CArray<uint64_t,2>& king8infos_backup,
+#ifdef MINIMAL
+          each_effect[i].set(sq);
+    makeMovePass();
+
+      for (int i=0; i<Piece::SIZE; ++i) {
+  os<< static_cast<SimpleState const&>(*this);
+void osl::NumEffectState::makeKing8Info()
+
+doSimpleMove(Square from, Square to, int promoteMask)
+
+      (*this).board[Square(x,y).index()]=src.board[Square(x,y).index()];
+NumEffectState::findThreatenedPiece(Player P) const
+{
+  effects.effectedNumTable[num0].clear();
+  (*this).king8infos=src.king8infos;
+
+void osl::NumEffectState::
+/* numEffectState.cc
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<WHITE>()))
+  effected_changed_mask_backup = effects.effected_changed_mask;
+  effects.clearEffectedChanged();
+                            const NumEffectState& st2)
+    v2di b16=*((v2di*)&src.board[16]);
+  makePinOpenDir<L>(target,pins,mask,defense);
+    os << 'P' << y;  
+  CArray<PieceMask,2> effected_changed_mask_backup;
+  using namespace move_classifier;
+void osl::NumEffectState::copyFrom(const SimpleState& src)
+  pieces_onboard[P].xorMask(numIndex,numMask);
+osl::
+
+  {
+             const CArray<PieceMask,2>& effected_mask_backup,
+void osl::NumEffectState::
+      return pieceOf(pieces.bsf()+PtypeFuns<PAWN>::indexNum*32);
+      return pieceOf(plance.bsr()+lance_index*32);
+        return false;
+    effects.effected_mask[WHITE].reset(num);
+#ifndef MINIMAL
+#endif
+                    promoted_backup, effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+    // 確認が必要
+
+void osl::NumEffectState::generateLegal(MoveVector& moves) const
+  for (int i=lance_index; i>=0; --i) {
+        continue;                // captured
+
+               const CArray<PieceMask,2>&, const KingMobility&, const CArray<PieceMask,2>&,
+    changed.set(from);
+NumEffectState::NumEffectState(const SimpleState& st) 
+  }
+    effects.effected_mask[WHITE].set(num);
+  case KNIGHT: case PKNIGHT:
+  }
+}
+
+  effects.effected_mask = effected_mask_backup;
+    pieces &= ~ppieces;
+  template void NumEffectState::
+  for (int z=0; z<2; ++z) {
+    for(int y=1;y<=9;y++)
+          }
+  }
+                  PtypeO&, PtypeO&, PtypeO&, int&, int&, int&, mask_t&,
+                  PtypeO, int, int, int, mask_t, const CArray<PieceMask,2>&,
+  return true;
+  numIndex=Ptype_Table.getIndex(ptype);
+  effect.clearBit<KING>();
+  setPieceOf(num0,oldPiece);
+    v2di b100=*((v2di*)&src.board[100]);
+  if (! last_move.isNormal())
+  if (!(st1.effects == st2.effects)) 
+      for(int num=0;num<=39;num++){
+  }
+  {
+#include "osl/move_classifier/pawnDropCheckmate.h"
+  template void NumEffectState::makeKing8Info<BLACK>();
+  (*this).stand_mask=src.stand_mask;
+    // この指手は，玉の素抜きがあったり，打歩詰の可能性があるので
+  promoted = promoted_backup;
+  int num, numIndex;
+  }
+  effects.template doBlockAt<NumBitmapEffect::Sub,true>(*this,to,num);
+  pieces = effect.getMask(index) & ~ppieces;
+    v2di b80=*((v2di*)&src.board[80]);
+  case SILVER: case PSILVER:
+  int num;
+          if (show_error)
+  effects.clearChangedEffects();
+        }
+    v2di b116=*((v2di*)&src.board[116]);
+  effects.effected_changed_mask = effected_changed_mask_backup;
+  assert(move.isValid());
+  template void NumEffectState::
+  move_generator::AllMoves<move_action::Store>::generate(turn(), *this, store);
+void osl::NumEffectState::
+      for(int i=0;i<2;i++){
+  else
+                 CArray<uint64_t,2>&, MobilityTable&);
+
+    v2di p32=*((v2di*)&src.pieces[32]);
+    v2di b96=*((v2di*)&src.board[96]);
+    *((v2di*)&(*this).board[84])=b84;
+    return false;
+  if(hasEffectAt(WHITE,to))
+  else
+                  PtypeO, int, int, int, mask_t, const CArray<PieceMask,2>&,
+#ifndef DFPNSTATONE
+  }
+        }
+  (*this).pieces=src.pieces;
+#ifndef MINIMAL
+  }
+    BoardMask changed=changedEffects(BLACK)|changedEffects(WHITE);
+  king_mobility_backup = king_mobility;
+  oldPiece=pieceAt(from);
+      if (prev.pieceOf(i).square() == moved.to())
+NumEffectState::selectCheapPiece(PieceMask effect) const
+
+  (*this).pin_or_open=src.pin_or_open;
+  king_mobility = king_mobility_backup;
+        {
+  setPieceOf(num1,target);
+// ;;; End:
+}
+{
+    effects.effected_mask[BLACK].set(num0);
+template <bool show_error>
+    *((v2di*)&(*this).board[116])=b116;
+  const int num = pieces.bsf(), nump = ppieces.bsf();
+    *((v2di*)&(*this).board[32])=b32;
+  }
+
+
+prologueSimple(Player2Type<P>, Square from, Square to, int promoteMask,
+    return allEffectAt<BISHOP>(attack, target);
+#ifndef MINIMAL
+}
+// ;;; c-basic-offset:2
+  pieces_onboard[P].xorMask(numIndex,numMask);
+
+
+}
+               CArray<uint64_t,2>&, MobilityTable&);
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<BLACK>()))
+{
+  setPieceOf(num,newPiece);
+    *((v2di*)&(*this).board[100])=b100;
+                const CArray<uint64_t,2>& king8infos_backup,
+    mask_t promoted = all & promotedPieces().getMask(i);
+}
+#ifndef MINIMAL
+  effects.doEffect<NumBitmapEffect::Add,false>(*this,oldPtypeO,from,num);
+  stand_count[P][ptype-PTYPE_BASIC_MIN]--;
+  effects.mobilityTable = mobility_backup;
+  using namespace move_classifier;
+}
+{
+epilogueDrop(Player2Type<P>, Square to, Ptype ptype, Piece oldPiece, 
+       || pin_or_open[WHITE]!=pin_or_open_backup[WHITE])
+  standMask(P).xorMask(num1Index,num1Mask);
+               CArray<PieceMask,2>& effected_mask_backup,
+  effects.mobilityTable = mobility_backup;
+  CArray<PieceMask,2> pin_or_open_backup;
+#endif
+  // 持ち駒の表示
+  ptypeO=newPiece.ptypeO();
+  return (static_cast<const SimpleState&>(st1)
+    if (standMask(BLACK).test(num)){
+               const CArray<uint64_t,2>& king8infos_backup,
+{
+#include "osl/bits/numSimpleEffect.tcc"
+  }
+  promoted.resetAll();
+        if (! effectedChanged(pl).test(i)) {
+  PieceMask mask=piecesOnBoard(alt(defense));
+                CArray<PieceMask,2>& effected_mask_backup,
+  effects.clearEffectedChanged();
+}
+    return false;
+          Direction d=static_cast<Direction>(i);
+  assert(! inCheck(P));
+         << std::endl;
+void osl::NumEffectState::copyFrom(const NumEffectState& src)
+}
+  else
+    pin_or_open[alt(P)].reset(num1); // captured is not pin
+                PtypeO& new_ptypeo, int& num0, int& num1, 
+  setPieceOf(num1,target.captured());
+  this->player_to_move=src.player_to_move;
+  Piece oldPiece;
+  const int index = 0;
+  }
+  using namespace move_classifier;
+    Direction lastD=UL;
+      os << "P-00" << csa::show(Piece_Table.getPtypeOf(num))
+NumEffectState::~NumEffectState() 
+  template void NumEffectState::
+  standMask(P).xorMask(numIndex,numMask);
+    if (showError)
+  int numLow = ownMochigoma.bsf();
+    if (kingSquare(p).isPieceStand())
+    return false;
+             CArray<PieceMask,2>& pin_or_open_backup,
+  if (hasEffectAt(WHITE,to))
+
+  // test changedPieces()
+  effects.template doEffect<NumBitmapEffect::Sub,true>(*this,oldPtypeO,from,num);
+                    capturePtypeO, newPtypeO, num0, num1, num1Index,num1Mask, 
+  for(int num=0;num<40;num++){
+    v2di b104=*((v2di*)&src.board[104]);
+    
+    v2di b20=*((v2di*)&src.board[20]);
+
+  CArray<PieceMask,2> effected_mask_backup;
+  // 自分自身の効きを外す
+bool osl::NumEffectState::isConsistent(const NumEffectState& prev, Move moved, bool show_error) const
+    return isAlmostValidDrop<show_error>(move);
+    *((v2di*)&(*this).board[136])=b136;
+    v2di b132=*((v2di*)&src.board[132]);
+
+               const CArray<PieceMask,2>& effected_changed_mask_backup,
+  makePinOpen(WHITE);
+}
+    prologueCapture(Player2Type<BLACK>(), from, to, target, promoteMask, oldPiece, oldPtypeO, 
+  return primDir(d)
+
+  return mask_t();
+    v2di b136=*((v2di*)&src.board[136]);
+      if (promoted.test(i) != p.isPromoted()) {
+  pin_or_open_backup = pin_or_open;
+
+  num = numLow|(numIndex<<5);
+  {
+#ifndef MINIMAL
+    return false;
+               Piece& oldPiece, int& num, 
+    BoardMask changed=changedEffects(BLACK)|changedEffects(WHITE);
+    }
+    if (ret >= PtypeTraits<KNIGHT>::indexMin)
+    *((v2di*)&(*this).pieces[24])=p24;
+  stand_count[P][ptype-PTYPE_BASIC_MIN]++;
+  else
+      doCaptureMove(from,to,captured,move.promoteMask());
+  if (!(st1.pin_or_open == st2.pin_or_open)) 
+  : SimpleState(st),effects(st)
+  }
+{
+    MoveVector all_moves;
+  return ConditionAdaptor<SafeMove>::isMember(*this, move);
+             int& numIndex, mask_t& numMask,
+  if (Piece_Table.getPtypeOf(num) == Piece_Table.getPtypeOf(nump))
+
+    changed.set(from);
+    recalcPinOpen(to,lastD,P);
+  if(hasEffectAt(BLACK,to))
+    *((v2di*)&(*this).pieces[12])=p12;
+        }
+  if (oldPtypeO == newPtypeO(P,KING))
+                Piece oldPiece, PtypeO oldPtypeO, PtypeO capturePtypeO, 
+template<osl::Player P>
+                CArray<PieceMask,2>& pin_or_open_backup,
+  pin_or_open[defense]=makePinOpen(kingSquare(defense),defense);
+  setPieceOf(num0,newPiece);
+  Piece oldPiece;
+    v2di b52=*((v2di*)&src.board[52]);
+void osl::NumEffectState::
+    *((v2di*)&(*this).board[16])=b16;
+  }
+      const Player pl = indexToPlayer(j);
+void osl::NumEffectState::
+    clearPawn(alt(turn()),to);
+      npp = notpromoted.bsr() + i*32;
+    }
+       || pin_or_open[BLACK]!=pin_or_open_backup[BLACK])
+#ifndef MINIMAL
+    }
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<WHITE>()))
+
+
+      os << "P+00" << csa::show(Piece_Table.getPtypeOf(num))
+  if(hasEffectAt(WHITE,to))
+    if (show_error) {
+
+{
+    effects.effected_mask[BLACK].reset(num0);
+doDropMove(Square to,Ptype ptype)
+  effects.effected_mask = effected_mask_backup;
+#endif
+const osl::Piece osl::
+/* ------------------------------------------------------------------------- */
+    recalcPinOpen(to,lastD,P);
+                Piece& oldPiece, PtypeO& oldPtypeO, PtypeO& capturePtypeO, 
+    recalcPinOpen(from,lastD,P);
+  const Player altP=alt(P);
+  using namespace move_classifier;
+    if (pieces.any())
+    if (captured != Piece::EMPTY())
+  // あるいは自分自身のブロック
+  effects.effected_changed_mask[WHITE].set(num);
+#endif
+      moves.push_back(move.unpromote());
+  oldPtypeO=oldPiece.ptypeO();
+    prologueDrop(Player2Type<BLACK>(), to, ptype, oldPiece, num, ptypeO, numIndex, numMask, 
+  mobility_backup = effects.mobilityTable;
+    effects.effected_mask[BLACK].reset(num);
+  effects.template doBlockAt<NumBitmapEffect::Add,false>(*this,to,num);
+    v2di p0=*((v2di*)&src.pieces[0]);
+      }
+  Piece oldPiece;
+               CArray<PieceMask,2>& pin_or_open_backup,
+            std::cerr << "changedEffects unset\n" << *this << moved << sq << "\n";          
+void osl::NumEffectState::
+  epilogueCapture(Player2Type<WHITE>, Square, Square, Piece, Piece, PtypeO, PtypeO, 
+                PieceMask& promoted_backup,
+                   oldPiece, num, oldPtypeO, newPtypeO, 
+{
+#include "osl/move_generator/move_action.h"
+  setPieceOf(num,oldPiece);
+    for (int j=0; j<2; ++j) 
+      Square pos(x,y);
+                  const MobilityTable&);
+prologueDrop(Player2Type<P>, Square to, Ptype ptype,
+    assert(Piece_Table.getPtypeOf(ret) == PAWN);
+    return Piece::EMPTY();
+               const CArray<PieceMask,2>&, const CArray<uint64_t,2>&, const MobilityTable&);  
+#ifdef ALLOW_KING_ABSENCE
+  promoted_backup = promoted;
+    return false;
+    {
+  effects.invalidateChangedEffects();
+  int num0, num1, num1Index;
+  epilogueDrop(Player2Type<BLACK>, Square, Ptype, Piece, int, PtypeO, int, mask_t,
+  {
+  }
+                 PtypeO&, PtypeO&, CArray<PieceMask,2>&, KingMobility&,
+    return false;
+      if (show_error)
+  Piece newPiece=oldPiece.promoteWithMask(promoteMask);
+  new_ptypeo=newPiece.ptypeO();
+  effects.effectedNumTable[num].clear();
+      if (p.isPromoted())
+    return allEffectAt<LANCE>(attack, target);
+}
+  }
+  pin_or_open = pin_or_open_backup;
+}
+  changeTurn();
+  }
+  effects.doBlockAt<NumBitmapEffect::Add,false>(*this,to,num);
+  template void NumEffectState::
+  if (inCheck())
+                 effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+  return King8Info(Iking8Info(king));
+  if (promoteMask!=0 && num0<PtypeTraits<PAWN>::indexLimit)
+  effects.mobilityTable = mobility_backup;
+  // test changedEffects
+  const BoardMask changed_all = changed_squares[BLACK] | changed_squares[WHITE];
+    return pieceOf(king.bsf()+PtypeFuns<KING>::indexNum*32);
+  }
+  }
+  effects.template doEffect<NumBitmapEffect::Add,true>(*this,new_ptypeo,to,num);
+    if (King8Info(Iking8Info(p)).uint64Value() != king8info2.uint64Value()) {
+  if(turn()==BLACK){
+                 PtypeO&, PtypeO&, CArray<PieceMask,2>&, KingMobility&,
+void osl::NumEffectState::
+template<osl::Player P>
+  // 自分自身がブロックしていたpromote?の延長
+        if (effectSetAt(sq) != prev.effectSetAt(sq)) {
+    changed.set(to);
+
+  for (int i=0, iend=moves.size(); i<iend; ++i) {
+    effects.effected_mask[WHITE].reset(num);
+    return pieceOf(num);
+  effects.effectedNumTable[num1].clear();
+  else
+  // explicit template instantiation
+  effects.template doEffect<NumBitmapEffect::Sub,true>(*this,oldPtypeO,from,num0);
+  hasEffectByWithRemove<WHITE>(Square, Square) const;
+  if (from.isPieceStand())
+{
+  mask_t numMask;
+    return false;
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<WHITE>()))
+
+  for (int x=1; x<=9; ++x) {
+  effects.template doEffect<NumBitmapEffect::Add,true>(*this,new_ptypeo,to,num0);
+  for (int i=0; i<Piece::SIZE; ++i) {
+  effects.template doBlockAt<NumBitmapEffect::Add,true>(*this,from,num0);
+    }
+  }
+    // そうでなければ全ての手を生成
+  const CArray<BoardMask,2> changed_squares
+  forEachEffect(P, target, store);
+    *((v2di*)&(*this).board[36])=b36;
+  CArray<PieceMask,2> effected_changed_mask_backup;
+    effects.effected_mask[BLACK].set(num);
+               const KingMobility& king_mobility_backup,
+  prologueDrop(Player2Type<BLACK>, Square, Ptype, Piece&, int&, PtypeO&, 
+}
+          }
+    return false;
+  newPiece+=(to-from);
+bool osl::NumEffectState::isOpenCheck(Move move) const
+    prologueCapture(Player2Type<WHITE>(), from, to, target, promoteMask, oldPiece, oldPtypeO, 
+}
+  for (int i=0; i<Piece::SIZE; ++i) 
+    *((v2di*)&(*this).pieces[28])=p28;
+  mask_t pieces = effect.selectBit<PAWN>(), ppieces;
+// ;;; Local Variables:
+        std::cerr << "changedPieces() unset\n" << *this << moved << i 
+  promoted.reset(num1);
+{
+               CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+  KingMobility king_mobility_backup;
+const osl::mask_t osl::NumEffectState::
+                   oldPiece, num, oldPtypeO, newPtypeO, 
+    prologueSimple(Player2Type<BLACK>(), from, to, promoteMask, 
+  (*this).promoted=src.promoted;
+{
+  const mask_t ownMochigoma=
+  makePinOpenDir<UR>(target,pins,mask,defense);
+         << std::endl;
+    v2di p24=*((v2di*)&src.pieces[24]);
+  const int lance_index = PtypeFuns<LANCE>::indexNum; // 64bit: 0, 32bit: 1
+             CArray<PieceMask,2>& effected_changed_mask_backup,
+                 });
+    mask_t plance = lance & promotedPieces().getMask(lance_index);
+    !=primDirUnsafe(Board_Table.getShort8Unsafe(piece.owner(), from,to));
+}
+#if (defined(__i386__) || defined(__x86_64__)) && !defined(OSL_NO_SSE)
+                 PieceMask&, CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+}
+  effects.copyFrom(src.effects);
+    *((v2di*)&(*this).pieces[4])=p4;
+bool
+  effects.effected_mask = effected_mask_backup;
+{
+    return pieceOf(lance.bsr()+lance_index*32);
+  move_action::Store store(out);
+  effects.template doBlockAt<NumBitmapEffect::Sub,true>(*this,to,num);
+  if (!(st1.pieces_onboard == st2.pieces_onboard)) 
+               int num, PtypeO oldPtypeO, PtypeO newPtypeO,
+template<osl::Player P>
+epilogueSimple(Square from, Square to, Piece oldPiece, 
+
+  else
+  {
+  setBoard(from,oldPiece);
+}
+  }
+                  CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+  return pins;
+    v2di b32=*((v2di*)&src.board[32]);
+  template void NumEffectState::
+                 CArray<uint64_t,2>&, MobilityTable&);
+               CArray<uint64_t,2>&, MobilityTable&);
+#if OSL_WORDSIZE == 64
+  setBoard(to,newPiece);
+
+void osl::NumEffectState::
+
+    if (pin(p) != pin2) {
+    }
+  king8infos = king8infos_backup;
+    BoardMask changed=changedEffects(BLACK)|changedEffects(WHITE);
+               CArray<PieceMask,2>& effected_changed_mask_backup,
+  effects.clearEffectedChanged();
+             int num, PtypeO ptypeO, int numIndex, mask_t numMask,
+  epilogueDrop(Player2Type<WHITE>, Square, Ptype, Piece, int, PtypeO, int, mask_t,
+void osl::NumEffectState::showEffect(std::ostream& os) const
+
+    *((v2di*)&(*this).pieces[8])=p8;
+                CArray<PieceMask,2>& effected_changed_mask_backup,
+  case BISHOP: case PBISHOP:
+    *((v2di*)&(*this).board[68])=b68;
+    v2di p20=*((v2di*)&src.pieces[20]);
+    *((v2di*)&(*this).board[80])=b80;
+             const KingMobility& king_mobility_backup,
+  {
+    recalcPinOpen(from,lastD,alt(P));
+bool osl::NumEffectState::isCheck(Move move) const
+#endif
+                  PtypeO&, PtypeO&, PtypeO&, int&, int&, int&, mask_t&,
+    v2di b84=*((v2di*)&src.board[84]);
+  mobility_backup = effects.mobilityTable;
+  PieceMask pieces = piecesOnBoard(P) & effectedMask(alt(P));
+    *((v2di*)&(*this).pieces[32])=p32;
+        {
+
+    pieces &= ~ppieces;
+  effect_action::StorePiece store(&out);
+  if (last_move.isCapture())
+  {  
+  else{
+bool osl::
+void osl::NumEffectState::makeMove(Move move)
+  num1Mask=PieceMask::numToMask(num1);
+  }
+  template void NumEffectState::
+                const CArray<PieceMask,2>& effected_mask_backup,
+    *((v2di*)&(*this).board[64])=b64;
+#include <emmintrin.h>
+  effects.doEffect<NumBitmapEffect::Sub,false>(*this,newPtypeO,to,num);
+    standMask(P).getMask(numIndex) & Ptype_Table.getMaskLow(ptype);
+
+    Direction lastD=UL;
+#endif
+}
+    return pieceOf(pieces.any() ? pieces.bsf() : ppieces.bsf());
+  if (! effect.any())
+  const Ptype capturePtype=target.ptype();
+  prologueDrop(Player2Type<WHITE>, Square, Ptype, Piece&, int&, PtypeO&, 
+  makePinOpenDir<DL>(target,pins,mask,defense);
+  CArray<uint64_t,2> king8infos_backup;
+  if (effect.none())
+  (*this).king_mobility=src.king_mobility;
+  mask_t num1Mask;
+    }
+{
+#endif
+}
+    const PieceMask pin2 = effect_util::Pin::make(*this, p);
+osl::
+  if (last_move.isDrop() || last_move.oldPtype() == KNIGHT)
+
+  if (promoteMask!=0 && num < PtypeTraits<PAWN>::indexLimit)
+                   promoted_backup, effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+  new_ptypeo=newPiece.ptypeO();
+  for (int i=0; i<Piece::SIZE; ++i) {
+        }
+  king8infos = king8infos_backup;
+    os << std::endl;
+  num=oldPiece.number();
+  }
+  else {
+
+    setPawn(turn(),to);
+  if (turn()==BLACK){
+}
+      if (showError)
+{
+  using namespace move_classifier;
+    v2di b152=*((v2di*)&src.board[152]);
+}
+  effects.effected_mask[BLACK].reset(num1);
+#include "osl/move_classifier/safeMove.h"
+  PieceMask promoted_backup;
+  pin_or_open = pin_or_open_backup;
+  if (ret >= 0) {
+
+  effects.clearChangedEffects();
+          return false;
+    v2di b68=*((v2di*)&src.board[68]);
+             CArray<PieceMask,2>& effected_mask_backup,
+{
+{
+                  CArray<PieceMask,2>&, KingMobility&, PieceMask&,
+  else {
+}
+  }
+  {
+{
+  }
+    v2di b112=*((v2di*)&src.board[112]);
+      std::cerr << *this;
+  effects.template doEffect<NumBitmapEffect::Add,false>(*this,oldPtypeO,from,num0);
+  assert(move.isNormal());
+}
+{
+  (*this).pawnMask=src.pawnMask;
+  const Square from=move.from();
+  }
+  effected_mask_backup = effects.effected_mask;
+  PieceMask nolance = pieces; nolance.clearBit<LANCE>();
+    {
+    v2di b120=*((v2di*)&src.board[120]);
+namespace osl
+  template bool NumEffectState:: 
+                   pin_or_open_backup, king_mobility_backup,
+  }
+               PieceMask& promoted_backup,
+}
+}
+        std::cerr << "pin for " << p << " differs " << pin(p) << " " << pin2 << "\n";
+    mask_t all = nolance.getMask(i);
+    }
+{
+#include "osl/move_classifier/moveAdaptor.h"
+    v2di p8=*((v2di*)&src.pieces[8]);
+  effects.effected_mask[0].resetAll();
+
+    doDropMove(to,move.ptype());
+                   promoted_backup, effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+}
+  {
+{
+    pin_or_open[P].reset(num0);
+#endif
+  else
+  mobility::MobilityTable mobilityTable;
+        const Player pl = indexToPlayer(i);
+  king8infos_backup = king8infos;
+  if (ptype==PAWN)
+  const Square from=move.from();
+#elif OSL_WORDSIZE == 32
+  mobility::MobilityTable mobilityTable;
+  const Piece from_piece = this->pieceAt(from);
+                    pin_or_open_backup, king_mobility_backup,
+  pieces_onboard[0].resetAll();
+  {
+    *((v2di*)&(*this).board[48])=b48;
+    effects.effected_mask[WHITE].set(num);
+            std::cerr << "effectedChanged(" << pl << ") unset\n" << *this << moved << i 
+  {
+          if(effects.effectedNumTable[num][d]!=effects1.effectedNumTable[num][d]){
+  setBoard(to,Piece::EMPTY());
+  if (kingSquare<P>().isPieceStand())
+        Player pl=indexToPlayer(i);
+{
+                    pin_or_open_backup, king_mobility_backup,
+{
+      for(int y=1;y<=9;y++)
+    mask_t notpromoted = all & ~promoted;
+  }
+      if (prev.effectedMask(pl).test(i) != effectedMask(pl).test(i)) {
+                  const CArray<PieceMask,2>&, const CArray<uint64_t,2>&,
+    clearPawn(turn(),from);
+    ppieces = pieces & promoted.getMask<PAWN>();
+  default:
+      notpromoted &= ~Ptype_Table.getMaskLow(Piece_Table.getPtypeOf(pp));
+  if (! pin(alt(turn())).test(piece.number()))
+                const PieceMask& promoted_backup,
+  // depends on current piece numbers: <FU 0>, KE 18, GI 22, KI 26, <OU 30>, <KY 32>, KA 36, HI 38, 
+  numMask=ownMochigoma.lowestBit();
+      makeKing8Info<BLACK>();
+    *((v2di*)&(*this).board[24])=b24;
+                int num1Index, mask_t num1Mask,
+        if (prev.effectSetAt(sq).test(i))
+__attribute__ ((used,noinline))
+  }
+  case PAWN: case PPAWN:
+void osl::NumEffectState::
+    prologueDrop(Player2Type<WHITE>(), to, ptype, oldPiece, num, ptypeO, numIndex, numMask, 
+  }
+  oldPiece=pieceAt(from);
+bool osl::NumEffectState::isSafeMove(Move move) const
+  setBoard(from,Piece::EMPTY());
+  KingMobility king_mobility_backup;
+  mask_t king = effect.selectBit<KING>();

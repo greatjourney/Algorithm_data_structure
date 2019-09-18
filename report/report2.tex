@@ -1,0 +1,597 @@
+\documentclass[11pt,a4paper]{jsarticle}
+\usepackage{amsmath,amssymb}
+\usepackage{newtxtext,newtxmath}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{listings}
+\lstset{%
+ language={C++},
+ % backgroundcolor={\color[gray]{.95}},%
+ tabsize=2, % tab space width
+ showstringspaces=false, % don't mark spaces in strings
+ basicstyle={\ttfamily},%
+ %identifierstyle={\small},%
+ commentstyle={\itshape},%
+ keywordstyle={\bfseries},%
+ %ndkeywordstyle={\small},%
+ stringstyle={\ttfamily},
+ %frame={tb},
+ breaklines=true,
+ columns=[l]{fullflexible},%
+ % numbers=left,%
+ % numberstyle={\small},%
+ xrightmargin=0zw,%
+ %xleftmargin=3zw,%
+ stepnumber=1,
+ numbersep=1zw,%
+ lineskip=-0.5ex%
+}
+
+\title{レポート第2回 \\
+  「情報数理科学2 5/7出題課題」}
+\author{氏 名：　林橘平\\
+        学際科学科　総合情報コース3年 \\
+        学生証番号：08-192025 \\
+        E-mail: hk1338h0401@gmail.com}
+\date{\today}
+%
+\begin{document}
+\maketitle
+%
+\section{課題1 - Exercise1}
+\subsection{プログラムリスト(MyArrayStack.h)}
+＊配布されたものとの変更点は90 〜 111行目。
+\label{sec:prog-list1}
+% プログラムは 以下のように \begin{lstlisting} ... \end{lstlisting} を使って表示する．
+% また，行番号をつけるときは
+% \begin{lstlisting}[numbers=left]
+% のようにオプションをつけよ．
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+
+/*
+ * MyArrayStack.h
+ *
+ *  Created on: 2011-11-23
+ *      Author: morin
+ */
+
+#ifndef MYArrayStack_H_
+#define MYArrayStack_H_
+#include "array.h"
+#include "utils.h"
+
+namespace ods {
+
+template<class T>
+class DualArrayDeque;
+
+template<class T>
+class MyArrayStack {
+protected:
+	friend class DualArrayDeque<T>;
+	array<T> a;
+	int n;
+	virtual void resize();
+public:
+	MyArrayStack();
+	virtual ~MyArrayStack();
+	int size();
+	T get(int i);
+	T set(int i, T x);
+	virtual void add(int i, T x);
+	virtual void addAll1(int i, MyArrayStack<T>& x);
+	virtual void addAll2(int i, MyArrayStack<T>& x);
+	virtual void add(T x) { add(size(), x); }
+	virtual T remove(int i);
+	virtual void clear();
+};
+
+template<class T> inline
+int MyArrayStack<T>::size() {
+	return n;
+}
+
+template<class T> inline
+T MyArrayStack<T>::get(int i) {
+	return a[i];
+}
+
+template<class T> inline
+T MyArrayStack<T>::set(int i, T x) {
+	T y = a[i];
+	a[i] = x;
+	return y;
+}
+
+template<class T>
+void MyArrayStack<T>::clear() {
+	n = 0;
+	array<T> b(1);
+	a.swap(b);
+}
+
+template <class T>
+MyArrayStack<T>::MyArrayStack() : a(1) {
+	n = 0;
+}
+
+template<class T>
+MyArrayStack<T>::~MyArrayStack() {
+}
+
+
+template<class T>
+void MyArrayStack<T>::resize() {
+	array<T> b(max(2 * n, 1));
+	for (int i = 0; i < n; i++)
+		b[i] = a[i];
+	a.swap(b);
+}
+
+template<class T>
+void MyArrayStack<T>::add(int i, T x) {
+	if (n + 1 > a.length) resize();
+	for (int j = n; j > i; j--)
+		a[j] = a[j - 1];
+	a[i] = x;
+	n++;
+}
+
+template<class T>
+void MyArrayStack<T>::addAll1(int i, MyArrayStack<T>& x) {
+	for (int j = 0; j < x.size(); j++){
+		add(i + j, x.get(j));
+	}
+}
+
+template<class T>
+void MyArrayStack<T>::addAll2(int i, MyArrayStack<T>& x) {
+	if (a.length < n + x.size()) {
+		array<T> b(max(n + x.size(), 1));
+		for (int j = 0; j < n; j++) b[j] = a[j];
+	a.swap(b);
+	}
+	for (int j = i; j < n; j++) { 
+		a[j + x.size()] = a[j];
+	}
+	for (int j = i; j < i + x.size(); j++){
+		a[j] = x.get(j - i);
+	}
+	n += x.size() ;
+}
+
+
+template<class T>
+T MyArrayStack<T>::remove(int i) {
+    T x = a[i];
+	for (int j = i; j < n - 1; j++)
+		a[j] = a[j + 1];
+	n--;
+	if (a.length >= 3 * n) resize();
+	return x;
+}
+
+} /* namespace ods */
+
+#endif /* MyArrayStack_H_ */
+\end{lstlisting}
+%
+\subsection{プログラムリスト(ex2\_1.cpp)}
+
+\label{sec:prog-list2}
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include "MyArrayStack.h"
+#include <iostream>
+
+uint64_t cputime(){
+  unsigned int ax,dx;
+  asm volatile("rdtsc\nmovl %%eax,%0\nmovl %%edx,%1":"=g"(ax),"=g"(dx): :"eax","edx");
+  return (uint64_t(dx)<<32)+uint64_t(ax);
+}
+
+int main(){
+  int n = 20;
+  ods::MyArrayStack<int> as, bs, cs;
+  for (int i = 0; i < n; i++){
+    as.add(i, i); 
+    cs.add(i, i);
+  }
+  for (int i = 0; i < n * 4; i++){
+    bs.add(i, 1000 - i); 
+  }
+  uint64_t cpu1 = cputime();
+  cs.addAll1(10,bs);
+  uint64_t cpu2 = cputime();
+  as.addAll2(10,bs);
+  uint64_t cpu3 = cputime();
+  std::cout << "addAll1 time " << cpu2 - cpu1 << std::endl;
+  std::cout << "addAll2 time " << cpu3 - cpu2 << std::endl;
+  for (int i = 0; i < as.size(); i++){
+		std::cout << "as[" << i << "]=" <<as.get(i) << std::endl; 		
+	}
+
+  return 0;
+}
+
+\end{lstlisting}
+
+\subsection{実行結果}
+\label{sec:results1}
+
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+コンパイラはg++ 、自分のMacターミナル上でコマンドを実行した。
+(base) MBP:cpp hayashikippei$ g++ -o  ex2_1   ex2_1.cpp
+(base) MBP:cpp hayashikippei$ ./ex2_1 > ex2_1.txt
+ex2\_1.txtファイルの中身
+
+addAll1 time 46067
+addAll2 time 6903
+as[0]=0
+as[1]=1
+as[2]=2
+as[3]=3
+as[4]=4
+as[5]=5
+as[6]=6
+as[7]=7
+as[8]=8
+as[9]=9
+as[10]=1000
+as[11]=999
+as[12]=998
+as[13]=997
+as[14]=996
+as[15]=995
+as[16]=994
+as[17]=993
+as[18]=992
+as[19]=991
+as[20]=990
+as[21]=989
+as[22]=988
+as[23]=987
+as[24]=986
+as[25]=985
+as[26]=984
+as[27]=983
+as[28]=982
+as[29]=981
+as[30]=980
+as[31]=979
+as[32]=978
+as[33]=977
+as[34]=976
+as[35]=975
+as[36]=974
+as[37]=973
+as[38]=972
+as[39]=971
+as[40]=970
+as[41]=969
+as[42]=968
+as[43]=967
+as[44]=966
+as[45]=965
+as[46]=964
+as[47]=963
+as[48]=962
+as[49]=961
+as[50]=960
+as[51]=959
+as[52]=958
+as[53]=957
+as[54]=956
+as[55]=955
+as[56]=954
+as[57]=953
+as[58]=952
+as[59]=951
+as[60]=950
+as[61]=949
+as[62]=948
+as[63]=947
+as[64]=946
+as[65]=945
+as[66]=944
+as[67]=943
+as[68]=942
+as[69]=941
+as[70]=940
+as[71]=939
+as[72]=938
+as[73]=937
+as[74]=936
+as[75]=935
+as[76]=934
+as[77]=933
+as[78]=932
+as[79]=931
+as[80]=930
+as[81]=929
+as[82]=928
+as[83]=927
+as[84]=926
+as[85]=925
+as[86]=924
+as[87]=923
+as[88]=922
+as[89]=921
+as[90]=10
+as[91]=11
+as[92]=12
+as[93]=13
+as[94]=14
+as[95]=15
+as[96]=16
+as[97]=17
+as[98]=18
+as[99]=19
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+配布された、MyArrayStack.h,とex2_1.cppに手を加えた。効率が悪い実装として公開されていたaddAll関数をaddAll1、自分で実装した方をaddAll2とした。x.size() = mとする。１回のa[x] = a[y]と配列の要素に数値を代入する作業をコピーと呼ぶ。
+addAll1では、add(i, x)をm回繰り返すことでaddAllを実装している。ここでは、a[i] ~ a[n-1]の要素をadd(i,x )を実行する度に1ずつ移動させている。その際m (n - i) 回コピーをしているが、ここで無駄が生じている。これらの要素は最終的にa[i + m] ~ a[n+m-1]に移動するので、ここに直接コピーしてやれば良い。この場合だとコピーは (n - i)回で済む。配列xの要素を全てコピーするのでそれを合わせて考え、resizeにかかる時間を無視すると、実行時間はO(m(n + 1 - i))である。
+addAll2では上記の無駄を改善したプログラムである。まず配列aのサイズがn + mより小さかったらresizeと同じようにしてサイズをn + mにする。そして、元の配列aのa[i] ~ a[n-1]の要素を添字をmだけ後ろに移動させる。それからxの要素x[0] ~ x[m-1]をa[i] ~ a[i + m -1]に順番にコピーして、addAllの作業が完成する。出力されたex2_1.txtのasの要素を見ても、正しく実行されていることがわかる。resizeの実行時間を無視するとaddAll2の実行時間はO( m + n - i )である。
+O( m + n - i ) < O(m(n + 1 - i) = O( m + m(n  - i)) であるので、理論上addAll2で効率化に成功している。
+ex2_1.cppでは全く同じ配列as, csを用意して、cs.addAll1(10,bs)にかかった時間をcount1, as.addAll2(10,bs)にかかった時間をcount2としてex2_1.txtに出力した。
+count2はcount1の1/10程度になっており、実際に効率化できていることも確認できた。
+\end{verbatim}
+%
+\section{課題2 -Exercise2}
+\subsection{プログラムリスト(ArrayStack.h)}
+\label{sec:prog-list2}
+
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+配布されたものとの変更点は98 〜106行目。
+/*
+ * ArrayStack.h
+ *
+ *  Created on: 2011-11-23
+ *      Author: morin
+ */
+
+#ifndef ARRAYSTACK_H_
+#define ARRAYSTACK_H_
+#include "array.h"
+#include "utils.h"
+
+namespace ods {
+
+template<class T>
+class DualArrayDeque;
+
+template<class T>
+class ArrayStack {
+protected:
+	friend class DualArrayDeque<T>;
+	array<T> a;
+	int n;
+	virtual void resize();
+public:
+	ArrayStack();
+	virtual ~ArrayStack();
+	int size();
+	T get(int i);
+	T set(int i, T x);
+	virtual void add(int i, T x);
+	virtual void add(T x) { add(size(), x); }
+	virtual T remove(int i);
+	virtual T remove_random();
+	virtual void clear();
+};
+
+template<class T> inline
+int ArrayStack<T>::size() {
+	return n;
+}
+
+template<class T> inline
+T ArrayStack<T>::get(int i) {
+	return a[i];
+}
+
+template<class T> inline
+T ArrayStack<T>::set(int i, T x) {
+	T y = a[i];
+	a[i] = x;
+	return y;
+}
+
+template<class T>
+void ArrayStack<T>::clear() {
+	n = 0;
+	array<T> b(1);
+	a.swap(b);
+}
+
+template <class T>
+ArrayStack<T>::ArrayStack() : a(1) {
+	n = 0;
+}
+
+template<class T>
+ArrayStack<T>::~ArrayStack() {
+}
+
+template<class T>
+void ArrayStack<T>::resize() {
+	array<T> b(max(2 * n, 1));
+	for (int i = 0; i < n; i++)
+		b[i] = a[i];
+	a.swap(b);
+}
+
+template<class T>
+void ArrayStack<T>::add(int i, T x) {
+	if (n + 1 > a.length) resize();
+	for (int j = n; j > i; j--)
+		a[j] = a[j - 1];
+	a[i] = x;
+	n++;
+}
+
+template<class T>
+T ArrayStack<T>::remove(int i) {
+	T x = a[i];
+	for (int j = i; j < n - 1; j++)
+		a[j] = a[j + 1];
+	n--;
+	if (a.length >= 3 * n) resize();
+	return x;
+}
+
+template<class T> 
+T ArrayStack<T>::remove_random() {
+// replace this function
+  int i = rand() % size();
+  T x = a[i];  
+	a[i] = a[n-1];
+	n--;
+	if (a.length >= 3 * n) resize();
+	return x;
+}
+
+} /* namespace ods */
+
+#endif /* ARRAYSTACK_H_ */
+\end{lstlisting}
+
+\subsection{プログラムリスト(MyRandomQueue.h)}
+配布されたものとの変更点は35 〜 39行目。
+\label{sec:prog-list2}
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include "ArrayStack.h"
+
+template<class T>
+class MyRandomQueue {
+protected:
+  ods::ArrayStack<T> as;
+public:
+  MyRandomQueue();
+  int size();
+  void add(T x);
+  T remove();
+  T remove_random();
+};
+
+template <class T>
+MyRandomQueue<T>::MyRandomQueue() : as() {
+}
+
+template<class T> inline
+int MyRandomQueue<T>::size() {
+  return as.size();
+}
+
+template<class T> inline
+void MyRandomQueue<T>::add(T x) {
+  as.add(x);
+}
+
+template<class T> inline
+T MyRandomQueue<T>::remove() {
+// replace this function
+  return as.remove(as.size() - 1);
+}
+
+template<class T> inline
+T MyRandomQueue<T>::remove_random() {
+// replace this function
+  return as.remove_random();
+}
+
+
+\end{lstlisting}
+
+\subsection{プログラムリスト(ex2\_2.cpp)}
+\label{sec:prog-list2}
+\begin{lstlisting}[numbers=left,numberstyle=\ttfamily,xleftmargin=2zw]
+#include "SlowRandomQueue.h"
+#include "MyRandomQueue.h"
+#include <iostream>
+
+uint64_t cputime(){
+  unsigned int ax,dx;
+  asm volatile("rdtsc\nmovl %%eax,%0\nmovl %%edx,%1":"=g"(ax),"=g"(dx): :"eax","edx");
+  return (uint64_t(dx)<<32)+uint64_t(ax);
+}
+
+int main(){
+  int n = 100;
+  {
+    SlowRandomQueue<int> as;
+    uint64_t cpu1 = cputime();
+    for (int i = 0; i < n * 100; i++){
+      as.add(i);
+    }
+    int r = 0;
+    for (int i = 0; i < n * 100; i++){
+      r += as.remove();
+    }
+    uint64_t cpu2 = cputime();
+    std::cout << "SlowRandomQueue time=" << (cpu2 - cpu1) << std::endl;
+    for (int i = 0; i < n; i++){
+      as.add(i);
+    }
+    for (int i = 0; i < n; i++){
+      std::cout << as.remove() << ",";
+    }
+    std::cout << std::endl;
+  }
+  {
+    MyRandomQueue<int> as;
+    uint64_t cpu1 = cputime();
+    for (int i = 0; i < n * 100; i++){
+      as.add(i);
+    }
+    int r = 0;
+    for (int i = 0; i < n * 100; i++){
+      r += as.remove_random();
+    }
+    uint64_t cpu2 = cputime();
+    std::cout << "MyRandomQueue time=" << (cpu2 - cpu1) << std::endl;
+    for (int i = 0; i < n; i++){
+      as.add(i);
+    }
+    for (int i = 0; i < n; i++){
+      std::cout << as.remove_random() << ",";
+    }
+    std::cout << std::endl;
+  }
+}
+
+\end{lstlisting}
+
+\subsection{実行結果}
+\begin{quote}           % 実行結果は \begin{quote} で字下げする
+\begin{verbatim}
+コンパイラはg++ 、自分のMacターミナル上でコマンドを実行した。
+(base) MBP:cpp hayashikippei$ g++ -o  ex2_2   ex2_2.cpp
+(base) MBP:cpp hayashikippei$ ./ex2_2 > ex2_2.txt
+
+ex2\_1.txtファイルの中身
+
+SlowRandomQueue time=491136764
+6,66,99,81,44,27,46,83,3,84,97,70,2,62,8,40,16,89,18,43,58,67,41,68,7,91,25,13,59,56,9,4,29,60,77,
+54,
+78,49,98,95,53,92,17,52,71,88,82,42,24,22,10,79,35,80,90,33,76,15,37,5,21,26,55,47,65,45,14,73,
+74,87,28,48,96,64,57,72,20,61,12,85,50,23,39,1,75,94,63,36,0,93,19,32,69,11,38,86,30,51,31,34,
+MyRandomQueue time=1508515
+69,27,78,80,26,44,30,79,39,38,52,33,76,64,24,77,63,56,25,47,74,20,62,60,34,17,9,91,43,16,0,41,90,
+11,84,35,32,86,3,45,61,36,95,59,37,28,85,55,83,19,99,98,75,72,94,2,93,66,73,21,14,96,54,13,15,68,
+71,29,22,40,92,18,89,70,4,31,10,5,23,53,6,46,67,82,12,65,42,57,48,97,58,1,51,88,81,87,50,8,49,7,
+
+\end{verbatim}
+\end{quote}
+%
+\subsection{考察}
+\begin{verbatim}
+配布されたArrayStack.h、MyRandomQueue.h、ex2_2.cppに手を加えた。自分で実装したRandomQueueにおけるremove関数をremove_randomとしている。remove_randomはArrayStack.hで定義している。まず、削除する要素のインデックスをrand関数を使って決め、xにその値を記録する。そしてa[i] = a[n-1]; n--; とすることでa[i]を消去している。RandomQueueにおいて、配列のインデックスを指定して要素にアクセスすることはないため、配列の要素はaddした順番に並んでいる必要はない。そのため、n番目の要素a[n-1]をi番目に持ってきてもよく、１回のコピーでremoveを実現できる。そのため理論上これが最も効率が良い。MyRandomQueue.hではremove_randomをArrayStack.hから呼び出して定義している。
+ex2_2.txtの出力を見ると、確かにRandomQueueを実装できており、実行時間はSlowRandomQueue.hの1/100以下であり、確かに効率化できていることが確認できる。
+\end{verbatim}
+%
+\end{document}

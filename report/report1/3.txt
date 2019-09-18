@@ -1,0 +1,62 @@
+#include "osl/bits/numSimpleEffect.tcc"
+#if (defined(__i386__) || defined(__x86_64__)) && !defined(OSL_NO_SSE)
+#endif
+NumEffectState::~NumEffectState() 
+    return pieceOf(pieces.any() ? pieces.bsf() : ppieces.bsf());
+      return pieceOf(ret);  
+  }
+                       kingSquare(alt(turn())))
+  }
+                    pin_or_open_backup, king_mobility_backup,
+  PtypeO ptypeO;
+  CArray<PieceMask,2> effected_mask_backup;
+}
+  effects.template doBlockAt<NumBitmapEffect::Add,true>(*this,from,num);
+  effects.effected_changed_mask[WHITE].set(num);
+  oldPiece=pieceOf(num);
+    effects.effected_mask[WHITE].reset(num);
+             const CArray<PieceMask,2>& effected_changed_mask_backup,
+                CArray<PieceMask,2>& pin_or_open_backup,
+  else {
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<WHITE>()))
+       || pin_or_open[WHITE]!=pin_or_open_backup[WHITE])
+            std::cerr << "piece=" << pieceOf(num) << ",num=" << num << ",d=" << d << ",v1=" << effects.effectedNumTable[num][d] << ",v2=" << effects1.effectedNumTable[num][d] << std::endl;
+            return false;
+    if (! changed_effect_pieces.test(i)) {
+      if (prev.effectedMask(pl).test(i) != effectedMask(pl).test(i)) {
+  }
+    }
+#ifndef MINIMAL
+    for(int x=9;x>0;x--){
+  makePinOpenDir<UL>(target,pins,mask,defense);
+allEffectAt(Player attack, Ptype ptype, Square target) const
+    return allEffectAt<SILVER>(attack, target);
+  case GOLD:
+  case ROOK: case PROOK:
+  default:
+}
+
+  (*this).used_mask=src.used_mask;
+  {  
+    v2di b32=*((v2di*)&src.board[32]);
+    v2di b52=*((v2di*)&src.board[52]);
+    *((v2di*)&(*this).board[20])=b20;
+    *((v2di*)&(*this).board[40])=b40;
+
+    v2di b72=*((v2di*)&src.board[72]);
+    v2di b88=*((v2di*)&src.board[88]);
+
+    v2di p0=*((v2di*)&src.pieces[0]);
+#else
+  (*this).pawnMask=src.pawnMask;
+}
+{
+{
+void osl::NumEffectState::generateLegal(MoveVector& moves) const
+    // そうでなければ全ての手を生成
+    MoveVector all_moves;
+void osl::NumEffectState::generateWithFullUnpromotions(MoveVector& moves) const
+void osl::NumEffectState::
+  template bool NumEffectState:: 
+                  PtypeO&, PtypeO&, PtypeO&, int&, int&, int&, mask_t&,
+                  CArray<PieceMask,2>&, CArray<PieceMask,2>&,

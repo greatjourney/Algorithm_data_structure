@@ -1,0 +1,448 @@
+
+    return false;
+    return false;
+    return false;
+    return false;
+    return false;
+
+}
+
+{
+#endif
+}
+
+{
+}
+osl::
+{
+}
+
+{
+  }
+  if (pieces.any()) 
+  {
+    pieces &= ~ppieces;
+    if (pieces.any())
+  }
+}
+
+const osl::Piece osl::
+{
+    }
+  }
+  }
+  }
+}
+
+{
+    return false;
+  }
+    return false;
+}
+
+{
+    return;
+  }
+
+  {
+  }
+  {
+    }
+    {
+    }
+  }
+}
+
+{
+  }
+                   oldPiece, num, oldPtypeO, newPtypeO, 
+                   pin_or_open_backup, king_mobility_backup,
+                   promoted_backup, effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+  }
+}
+void osl::NumEffectState::
+{
+  Piece oldPiece;
+  CArray<PieceMask,2> pin_or_open_backup;
+  KingMobility king_mobility_backup;
+  PieceMask promoted_backup;
+  CArray<PieceMask,2> effected_mask_backup;
+  CArray<PieceMask,2> effected_changed_mask_backup;
+  CArray<uint64_t,2> king8infos_backup;
+  mobility::MobilityTable mobilityTable;
+  }
+  else{
+                    capturePtypeO, newPtypeO, num0, num1, num1Index,num1Mask, 
+                    pin_or_open_backup, king_mobility_backup,
+                    promoted_backup, effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+  }
+    clearPawn(turn(),from);
+}
+
+void osl::NumEffectState::
+{
+  Piece oldPiece;
+  CArray<PieceMask,2> pin_or_open_backup;
+  KingMobility king_mobility_backup;
+  CArray<PieceMask,2> effected_mask_backup;
+  CArray<PieceMask,2> effected_changed_mask_backup;
+  CArray<uint64_t,2> king8infos_backup;
+  mobility::MobilityTable mobilityTable;
+  if(turn()==BLACK){
+  }
+  else{
+                 pin_or_open_backup, king_mobility_backup,
+                 effected_mask_backup, effected_changed_mask_backup,king8infos_backup,mobilityTable);
+  }
+}
+
+template<osl::Player P>
+void osl::NumEffectState::
+{
+
+
+
+  }
+  {
+    Direction lastD=UL;
+  }
+  else
+  else
+  {
+  }
+}
+
+void osl::NumEffectState::
+{
+  effects.effectedNumTable[num].clear();
+}
+
+template<osl::Player P>
+void osl::NumEffectState::
+{
+  mobility_backup = effects.mobilityTable;
+  pin_or_open_backup = pin_or_open;
+  king_mobility_backup = king_mobility;
+  effected_mask_backup = effects.effected_mask;
+  effected_changed_mask_backup = effects.effected_changed_mask;
+#endif
+  setPieceOf(num,newPiece);
+  effects.clearChangedEffects();
+  effects.clearEffectedChanged();
+  effects.template doBlockAt<NumBitmapEffect::Sub,true>(*this,to,num);
+  setBoard(to,newPiece);
+  {
+    Direction lastD=UL;
+    recalcPinOpen(to,lastD,P);
+  }
+  {
+    Direction lastD=UL;
+    recalcPinOpen(to,lastD,alt(P));
+  }
+  if(hasEffectAt(BLACK,to))
+    effects.effected_mask[BLACK].set(num);
+  else
+    effects.effected_mask[BLACK].reset(num);
+    effects.effected_mask[WHITE].set(num);
+  else
+    effects.effected_mask[WHITE].reset(num);
+  effects.effected_changed_mask[BLACK].set(num);
+  effects.effected_changed_mask[WHITE].set(num);
+  {
+    BoardMask changed=changedEffects(BLACK)|changedEffects(WHITE);
+    changed.set(to);
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<BLACK>()))
+       || pin_or_open[BLACK]!=pin_or_open_backup[BLACK])
+      makeKing8Info<BLACK>();
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<WHITE>()))
+       || pin_or_open[WHITE]!=pin_or_open_backup[WHITE])
+      makeKing8Info<WHITE>();
+  }
+}
+
+template<osl::Player P>
+void osl::NumEffectState::
+{
+  standMask(P).xorMask(numIndex,numMask);
+  pieces_onboard[P].xorMask(numIndex,numMask);
+  setBoard(to,Piece::EMPTY());
+  setPieceOf(num,oldPiece);
+  effects.effectedNumTable[num].clear();
+  effects.invalidateChangedEffects();
+  pin_or_open = pin_or_open_backup;
+  king_mobility = king_mobility_backup;
+  effects.effected_mask = effected_mask_backup;
+  effects.effected_changed_mask = effected_changed_mask_backup;
+  effects.mobilityTable = mobility_backup;
+  king8infos = king8infos_backup;
+}
+
+template<osl::Player P>
+void osl::NumEffectState::
+{
+  mobility_backup = effects.mobilityTable;
+  pin_or_open_backup = pin_or_open;
+  king_mobility_backup = king_mobility;
+  effected_mask_backup = effects.effected_mask;
+  effected_changed_mask_backup = effects.effected_changed_mask;
+  king8infos_backup = king8infos;
+
+  oldPiece=pieceAt(from);
+  Piece newPiece=oldPiece.promoteWithMask(promoteMask);
+  newPiece+=(to-from);
+  oldPtypeO=oldPiece.ptypeO();
+  new_ptypeo=newPiece.ptypeO();
+  effects.clearChangedEffects();
+  effects.clearEffectedChanged();
+  setBoard(from,Piece::EMPTY());
+  setBoard(to,newPiece);
+
+  if (oldPtypeO == newPtypeO(P,KING))
+    makePinOpen(P);
+  else {
+    Direction lastD=UL;
+    recalcPinOpen(from,lastD,P);
+    recalcPinOpen(to,lastD,P);
+  }
+  {
+    Direction lastD=UL;
+    recalcPinOpen(from,lastD,alt(P));
+    recalcPinOpen(to,lastD,alt(P));
+  }
+  promoted_backup = promoted;
+  if (promoteMask)
+  if(hasEffectAt(BLACK,to))
+  else
+  if(hasEffectAt(WHITE,to))
+  else
+  {
+    BoardMask changed=changedEffects(BLACK)|changedEffects(WHITE);
+    changed.set(from);
+    changed.set(to);
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<BLACK>()))
+       || pin_or_open[BLACK]!=pin_or_open_backup[BLACK])
+      makeKing8Info<BLACK>();
+    if(changed.anyInRange(Board_Mask_Table3x3.mask(kingSquare<WHITE>()))
+       || pin_or_open[WHITE]!=pin_or_open_backup[WHITE])
+      makeKing8Info<WHITE>();
+  }
+}
+
+template<osl::Player P>
+void osl::NumEffectState::
+{
+  standMask(P).xorMask(num1Index,num1Mask);
+  pieces_onboard[alt(P)].xorMask(num1Index,num1Mask);
+  setBoard(from,oldPiece);
+  effects.invalidateChangedEffects();
+  pin_or_open = pin_or_open_backup;
+  king_mobility = king_mobility_backup;
+  promoted = promoted_backup;
+  effects.effected_mask = effected_mask_backup;
+  effects.effected_changed_mask = effected_changed_mask_backup;
+  effects.mobilityTable = mobility_backup;
+  king8infos = king8infos_backup;
+}
+
+
+{
+  {
+    return false;
+  }
+  {
+    if (showError)
+    {
+        {
+        }
+          }
+        }
+      }
+    }
+    return false;
+  }
+#ifdef ALLOW_KING_ABSENCE
+#endif
+    }
+#endif
+      if (showError)
+      return false;
+  }
+      }
+    }
+  }
+}
+#endif
+
+{
+  for (int i=0; i<Piece::SIZE; ++i) {
+  }
+      }
+#ifndef MINIMAL
+#endif
+        }
+      }
+      {
+        {
+#ifndef MINIMAL
+#endif
+          }
+        }
+      }
+    }
+  }
+  for (int i=0; i<Piece::SIZE; ++i) {
+      continue;
+#ifndef MINIMAL
+#endif
+      return false;
+    }
+  }
+  {
+    {
+#ifndef MINIMAL
+          if (show_error)
+#endif
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+#endif
+
+  const Square from=move.from();
+  const Square to=move.to();
+    return false;
+    }
+    return false;
+  }
+  return true;
+}
+
+#endif
+  else
+}
+
+#ifndef MINIMAL
+{
+    }
+  }
+    }
+         << std::endl;
+    }
+  }
+}
+#endif
+
+{
+}
+
+void osl::NumEffectState::
+{
+}
+
+{
+  }
+}
+
+{
+#ifndef MINIMAL
+#endif
+#if (defined(__i386__) || defined(__x86_64__)) && !defined(OSL_NO_SSE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+#endif
+}
+
+{
+}
+
+{
+}
+{
+  using namespace move_classifier;
+}
+{
+  using namespace move_classifier;
+}
+{
+  using namespace move_classifier;
+}
+
+{
+  using namespace move_classifier;
+}
+
+#ifndef MINIMAL
+{
+}
+{
+  }
+  else {
+  }
+}
+
+{
+    return;
+  }
+}
+#endif
+
+void osl::NumEffectState::
+{
+}
+
+{
+
+  template bool NumEffectState:: 
+
+
+  template void NumEffectState::
+                 PtypeO&, PtypeO&, CArray<PieceMask,2>&, KingMobility&,
+                 PieceMask&, CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+                 CArray<uint64_t,2>&, MobilityTable&);
+
+  template void NumEffectState::
+  template void NumEffectState::
+                  PtypeO&, PtypeO&, PtypeO&, int&, int&, int&, mask_t&,
+                  CArray<PieceMask,2>&, KingMobility&, PieceMask&,
+                  CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+                  CArray<uint64_t,2>&, MobilityTable&);
+
+  template void NumEffectState::
+  template void NumEffectState::
+               int&, mask_t&, CArray<PieceMask,2>&, KingMobility&,
+               CArray<PieceMask,2>&, CArray<PieceMask,2>&,
+               CArray<uint64_t,2>&, MobilityTable&);
+
+  template void NumEffectState::
+  template void NumEffectState::
+                  PtypeO, int, int, int, mask_t, const CArray<PieceMask,2>&,
+                  const KingMobility&, const PieceMask&, const CArray<PieceMask,2>&,
+                  const CArray<PieceMask,2>&, const CArray<uint64_t,2>&,
+                  const MobilityTable&);
+  template void NumEffectState::
+  template void NumEffectState::
+               const CArray<PieceMask,2>&, const KingMobility&, const CArray<PieceMask,2>&,
+
+  template Piece 
+#endif
+}
+
